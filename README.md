@@ -1,7 +1,7 @@
 # 🚀 RAG with txtai
 
 <p align="center">
-    <img src="images/demo.gif"/>
+    <img src="https://raw.githubusercontent.com/neuml/rag/master/images/demo.gif"/>
 </p>
 
 This project is a Retrieval Augmented Generation (RAG) Streamlit application backed by [txtai](https://github.com/neuml/txtai). 
@@ -43,7 +43,7 @@ streamlit run rag.py
 
 ## RAG
 
-![Vector](images/vector.png)
+![Vector](https://raw.githubusercontent.com/neuml/rag/master/images/vector.png)
 
 Tradional RAG or vector RAG runs a vector search to find the top N most relevant matches to a user's input. Those matches are passed to an LLM and the answer is returned.
 
@@ -51,7 +51,7 @@ The query `Who created Linux?` runs a vector search for the best matching docume
 
 ## Graph RAG
 
-![Graph](images/graph.png)
+![Graph](https://raw.githubusercontent.com/neuml/rag/master/images/graph.png)
 
 GraphRAG is a new method that uses knowledge or semantic graphs to generate a context. Instead of a vector search, graph path queries are run. GraphRAG in the context of this application supports the following methods to generate context.
 
@@ -74,8 +74,8 @@ Data can be added as follows.
 
 | Method                                      |                                        |
 |:------------------------------------------- |:-------------------------------------- |
-| `# file path or URL`                        | ![Upload File](images/upload-file.png) |
-| `# custom notes and text as a string here!` | ![Upload Text](images/upload-text.png) |
+| `# file path or URL`                        | ![Upload File](https://raw.githubusercontent.com/neuml/rag/master/images/upload-file.png) |
+| `# custom notes and text as a string here!` | ![Upload Text](https://raw.githubusercontent.com/neuml/rag/master/images/upload-text.png) |
 
 When a query begins with a `#` the URL or file is read by the RAG application and loaded into the index. This method also supports loading text directly into the index. For example `# txtai is an all-in-one embeddings database` would create a new entry in the Embeddings database. 
 

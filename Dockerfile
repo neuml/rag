@@ -10,7 +10,7 @@ RUN \
     apt-get update && \
     apt-get -y --no-install-recommends install default-jre-headless && \
     rm -rf /var/lib/apt/lists && \
-    apt-get -y autoremove
+    apt-get -y autoremove && \
     \
     # Install Streamlit (UI), AutoAWQ (for quantization), latest Transformers (Llama 3.1)
     python -m pip install --no-cache-dir streamlit matplotlib autoawq transformers --upgrade
