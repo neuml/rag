@@ -1,3 +1,5 @@
+# 🚀 RAG with txtai
+
 <p align="center">
     <img src="https://raw.githubusercontent.com/neuml/rag/master/images/overview.png"/>
 </p>
