@@ -1,7 +1,5 @@
-# 🚀 RAG with txtai
-
 <p align="center">
-    <img src="https://raw.githubusercontent.com/neuml/rag/master/images/demo.gif"/>
+    <img src="https://raw.githubusercontent.com/neuml/rag/master/images/overview.png"/>
 </p>
 
 This project is a Retrieval Augmented Generation (RAG) Streamlit application backed by [txtai](https://github.com/neuml/txtai). 
@@ -41,6 +39,14 @@ Start the application.
 streamlit run rag.py
 ```
 
+## Demo
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/neuml/rag/master/images/demo.gif"/>
+</p>
+
+The short video clip above gives a brief overview on this RAG system. It shows a basic vector RAG query. It also shows a Graph RAG query with uploaded data. The following sections cover more on these concepts.
+
 ## RAG
 
 ![Vector](https://raw.githubusercontent.com/neuml/rag/master/images/vector.png)
@@ -53,7 +59,7 @@ The query `Who created Linux?` runs a vector search for the best matching docume
 
 ![Graph](https://raw.githubusercontent.com/neuml/rag/master/images/graph.png)
 
-GraphRAG is a new method that uses knowledge or semantic graphs to generate a context. Instead of a vector search, graph path queries are run. GraphRAG in the context of this application supports the following methods to generate context.
+Graph RAG is a new method that uses knowledge or semantic graphs to generate a context. Instead of a vector search, graph path queries are run. Graph RAG in the context of this application supports the following methods to generate context.
 
 - Graph query with the `gq: ` prefix. This is a form of graph query expansion. It starts with a vector search to find the top n results. Those results are then expanded using a graph network stored alongside the vector database.
   - `gq: Tell me about Linux`
@@ -64,7 +70,7 @@ GraphRAG is a new method that uses knowledge or semantic graphs to generate a co
 - Combination of both. This first runs a graph path query then runs a graph query only within the context of that path traversal.
   - `linux -> macos -> microsoft windows gq: Tell me about Linux`
 
-Every GraphRAG query response will also show a corresponding graph to help understand how the query works. Each node in the graph is a section (paragraph). The node nodes are generated with a LLM prompt that applies a topic label at upload time.
+Every Graph RAG query response will also show a corresponding graph to help understand how the query works. Each node in the graph is a section (paragraph). The node nodes are generated with a LLM prompt that applies a topic label at upload time.
 
 ## Adding data to the index
 
