@@ -1,4 +1,4 @@
 autoawq
 matplotlib
 streamlit
-txtai[graph,pipeline-data]
+txtai[graph,pipeline-data,pipeline-llm]
