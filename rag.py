@@ -3,6 +3,7 @@ Runs a RAG application backed by a txtai Embeddings database.
 """
 
 import os
+import platform
 import re
 
 from glob import glob
@@ -286,7 +287,14 @@ class Application:
         """
 
         # Load LLM
-        self.llm = LLM(os.environ.get("LLM", "TheBloke/Mistral-7B-OpenOrca-AWQ"))
+        self.llm = LLM(
+            os.environ.get(
+                "LLM",
+                "TheBloke/Mistral-7B-OpenOrca-AWQ"
+                if platform.machine() in ("x86_64", "AMD")
+                else "TheBloke/Mistral-7B-OpenOrca-GGUF/mistral-7b-openorca.Q4_K_M.gguf",
+            )
+        )
 
         # Load embeddings
         self.embeddings = self.load()

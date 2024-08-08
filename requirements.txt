@@ -1,4 +1,4 @@
-autoawq
+autoawq; platform_machine == "x86_64" or platform_machine == "AMD64"
 matplotlib
 streamlit
 txtai[graph,pipeline-data,pipeline-llm]

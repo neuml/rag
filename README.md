@@ -106,10 +106,13 @@ The RAG application has a number of environment variables that can be set to con
 | Variable    | Description                              | Default Value                       |
 |:----------- |:---------------------------------------- |:----------------------------------- | 
 | TITLE       | Sets the main title of the application   | 🚀 RAG with txtai                   |
-| LLM         | Sets the LLM                             | [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
+| LLM         | Sets the LLM                             | x86-64: [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
+|             |                                          | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
 | EMBEDDINGS  | Sets the embeddings database path        | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |
 | DATA        | Optionally sets the input data directory | None                                |
 | TOPICSBATCH | Optionally batches topic LLM queries     | None                                |
+
+*Note: AWQ models are only supported on `x86-64` machines*
 
 See the following examples for setting this configuration with the Docker container. When running within a Python virtual environment, simply set these as environment variables.
 
