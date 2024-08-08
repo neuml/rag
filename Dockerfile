@@ -3,7 +3,7 @@ ARG BASE_IMAGE=neuml/txtai-cpu
 FROM $BASE_IMAGE
 
 # Copy RAG application
-COPY rag.py .
+COPY rag.py requirements.txt .
 
 RUN \
     # Install Java (for Apache Tika)
