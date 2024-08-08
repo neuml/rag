@@ -4,6 +4,18 @@
     <img src="https://raw.githubusercontent.com/neuml/rag/master/images/overview.png"/>
 </p>
 
+<p align="center">
+    <a href="https://github.com/neuml/rag/releases">
+        <img src="https://img.shields.io/github/release/neuml/rag.svg?style=flat&color=success" alt="Version"/>
+    </a>
+    <a href="https://github.com/neuml/rag">
+        <img src="https://img.shields.io/github/last-commit/neuml/rag.svg?style=flat&color=blue" alt="GitHub last commit"/>
+    </a>
+    <a href="https://github.com/neuml/rag/issues">
+        <img src="https://img.shields.io/github/issues/neuml/rag.svg?style=flat&color=success" alt="GitHub issues"/>
+    </a>
+</p>
+
 This project is a Retrieval Augmented Generation (RAG) Streamlit application backed by [txtai](https://github.com/neuml/txtai). 
 
 Retrieval Augmented Generation (RAG) helps generate factually correct content by limiting the context in which a LLM can generate answers. This is typically done with a search query that hydrates a prompt with a relevant context.
