@@ -12,8 +12,8 @@ RUN \
     rm -rf /var/lib/apt/lists && \
     apt-get -y autoremove && \
     \
-    # Install Streamlit (UI), AutoAWQ (for quantization), latest Transformers (Llama 3.1)
-    python -m pip install --no-cache-dir streamlit matplotlib autoawq transformers --upgrade
+    # Install base requirements, latest Transformers (Llama 3.1)
+    python -m pip install --no-cache-dir -r requirements.txt transformers --upgrade
 
 # Start streamlit application
 ENTRYPOINT ["streamlit", "run", "rag.py"]
