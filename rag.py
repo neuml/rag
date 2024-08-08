@@ -200,10 +200,8 @@ class GraphContext:
             Image
         """
 
-        labels = {}
-        for x in graph.scan():
-            uid, topic = graph.attribute(x, "id"), graph.attribute(x, "topic")
-            labels[x] = topic if AutoId.valid(uid) and topic else uid
+        # Deduplicate and label graph
+        graph, labels = self.deduplicate(graph, 0.9)
 
         options = {
             "node_size": 700,
@@ -228,6 +226,53 @@ class GraphContext:
         plt.savefig(buffer, format="png", bbox_inches="tight")
         buffer.seek(0)
         return Image.open(buffer)
+
+    def deduplicate(self, graph, threshold):
+        """
+        Deduplicates input graph. This method merges nodes with topics having a similarity of more
+        than the input threshold. This method also builds a dictionary of labels for each node.
+
+        Args:
+            graph: input graph
+            threshold: topic merge threshold
+
+        Returns:
+            graph, labels
+        """
+
+        labels, topics, deletes = {}, {}, []
+        for node in graph.scan():
+            uid, topic = graph.attribute(node, "id"), graph.attribute(node, "topic")
+            label = topic if AutoId.valid(uid) and topic else uid
+
+            # Find similar topics
+            topicnames = list(topics.keys())
+            pid, pscore = (
+                self.embeddings.similarity(label, topicnames)[0]
+                if topicnames
+                else (0, 0.0)
+            )
+            primary = topics[topicnames[pid]] if pscore >= threshold else None
+
+            if not primary:
+                # Set primary node
+                labels[node], topics[label] = label, node
+            else:
+                # Copy edges to primary node
+                logger.debug(f"DUPLICATE {label} - {topicnames[pid]}")
+                edges = graph.edges(node)
+                if edges:
+                    for target, attributes in graph.edges(node).items():
+                        if primary != target:
+                            graph.addedge(primary, target, **attributes)
+
+                # Add duplicate node to delete list
+                deletes.append(node)
+
+        # Delete duplicate nodes
+        graph.delete(deletes)
+
+        return graph, labels
 
 
 class Application:
