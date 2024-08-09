@@ -116,7 +116,7 @@ The RAG application has a number of environment variables that can be set to con
 
 See the following examples for setting this configuration with the Docker container. When running within a Python virtual environment, simply set these as environment variables.
 
-### Llama 3.1 8B.
+### Llama 3.1 8B
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 -e LLM=hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4 neuml/rag
@@ -136,13 +136,13 @@ neuml/rag
 docker run -d --gpus=all -it -p 8501:8501 -e LLM=gpt-4o -e OPENAI_API_KEY=your-api-key neuml/rag
 ```
 
-### Run with another embeddings index.
+### Run with another embeddings index
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 -e EMBEDDINGS=neuml/arxiv neuml/rag
 ```
 
-### Build an embeddings index with a local directory of files.
+### Build an embeddings index with a local directory of files
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 -e DATA=/data/path -v local/path:/data/path neuml/rag
