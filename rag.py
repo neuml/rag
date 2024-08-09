@@ -260,7 +260,7 @@ class GraphContext:
                 labels[node], topics[label] = label, node
             else:
                 # Copy edges to primary node
-                logger.debug(f"DUPLICATE {label} - {topicnames[pid]}")
+                logger.debug(f"DUPLICATE NODE: {label} - {topicnames[pid]}")
                 edges = graph.edges(node)
                 if edges:
                     for target, attributes in graph.edges(node).items():
@@ -335,33 +335,33 @@ context: {context} """
         # Embeddings database path
         database = os.environ.get("EMBEDDINGS", "neuml/txtai-wikipedia-slim")
 
-        # Create a new embeddings database if:
-        #  - A data path is provided OR
-        #  - The database path is None
-        if data or not database:
-            # Create empty embeddings database
-            embeddings = Embeddings(
-                autoid="uuid5",
-                path="intfloat/e5-large",
-                instructions={"query": "query: ", "data": "passage: "},
-                content=True,
-                graph={"approximate": False, "minscore": 0.7},
-            )
-
-            # Index data directory, if provided
-            if data:
-                embeddings.index(self.stream(data))
-
-                # Create LLM-generated topics
-                self.infertopics(embeddings, 0)
-
-        else:
-            # Load existing model
+        # Check for existing index
+        if database:
+            logger.debug(f"LOAD INDEX: {database}")
             embeddings = Embeddings()
-            if os.path.exists(database):
+            if embeddings.exists(database):
                 embeddings.load(database)
-            else:
+            elif not os.path.isabs(database) and embeddings.exists(
+                cloud={"provider": "huggingface-hub", "container": database}
+            ):
                 embeddings.load(provider="huggingface-hub", container=database)
+            else:
+                logger.debug(f"NO INDEX FOUND: {database}")
+                embeddings = None
+
+        # Default embeddings index if not found
+        embeddings = embeddings if embeddings else self.create()
+
+        # Add content from data directory, if provided
+        if data:
+            logger.debug(f"INDEX DATA: {data}")
+            embeddings.upsert(self.stream(data))
+
+            # Create LLM-generated topics
+            self.infertopics(embeddings, 0)
+
+            # Save embeddings, if necessary
+            self.persist(embeddings)
 
         return embeddings
 
@@ -381,6 +381,26 @@ context: {context} """
 
         # Create LLM-generated topics
         self.infertopics(self.embeddings, start)
+
+        # Save embeddings, if necessary
+        self.persist(self.embeddings)
+
+    def create(self):
+        """
+        Creates a new empty Embeddings index.
+
+        Returns:
+            Embeddings
+        """
+
+        # Create empty embeddings database
+        return Embeddings(
+            autoid="uuid5",
+            path="intfloat/e5-large",
+            instructions={"query": "query: ", "data": "passage: "},
+            content=True,
+            graph={"approximate": False, "minscore": 0.7},
+        )
 
     def stream(self, data):
         """
@@ -439,6 +459,19 @@ context: {context} """
 
             if batch:
                 self.topics(embeddings, batch)
+
+    def persist(self, embeddings):
+        """
+        Saves an embeddings index if the PERSIST parameter is set.
+
+        Args:
+            embeddings: embeddings to save
+        """
+
+        persist = os.environ.get("PERSIST")
+        if persist:
+            logger.debug(f"SAVE INDEX: {persist}")
+            embeddings.save(persist)
 
     def topics(self, embeddings, batch):
         """
@@ -512,6 +545,28 @@ Text:
 
         return instructions
 
+    def settings(self):
+        """
+        Generates a message with current settings.
+
+        Returns:
+            settings
+        """
+
+        # Generate config settings rows
+        config = "\n".join(
+            f"|{name}|{os.environ.get(name)}|"
+            for name in ["EMBEDDINGS", "DATA", "PERSIST", "LLM"]
+            if name
+        )
+
+        return (
+            "The following is a table with the current settings.\n"
+            f"|Name|Value|\n"
+            f"|----|-----|\n"
+            f"|RECORD COUNT|{self.embeddings.count()}|\n"
+        ) + config
+
     def run(self):
         """
         Runs a Streamlit application.
@@ -548,6 +603,11 @@ Text:
                         self.addurl(url)
 
                     response = f"Added _{url}_ to index"
+                    st.write(response)
+
+                # Show settings
+                elif question == ":settings":
+                    response = self.settings()
                     st.write(response)
 
                 else:

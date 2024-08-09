@@ -110,9 +110,12 @@ The RAG application has a number of environment variables that can be set to con
 |             |                                          | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
 | EMBEDDINGS  | Sets the embeddings database path        | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |
 | DATA        | Optionally sets the input data directory | None                                |
+| PERSIST     | Optionally persist embeddings index      | None                                |
 | TOPICSBATCH | Optionally batches topic LLM queries     | None                                |
 
 *Note: AWQ models are only supported on `x86-64` machines*
+
+In the application, these settings can be shown by typing `:settings`.
 
 See the following examples for setting this configuration with the Docker container. When running within a Python virtual environment, simply set these as environment variables.
 
@@ -146,6 +149,13 @@ docker run -d --gpus=all -it -p 8501:8501 -e EMBEDDINGS=neuml/arxiv neuml/rag
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 -e DATA=/data/path -v local/path:/data/path neuml/rag
+```
+
+### Persist embeddings and cache models
+
+```
+docker run -d --gpus=all -it -p 8501:8501 -e DATA=/data/path -e EMBEDDINGS=/data/embeddings \
+-e PERSIST=/data/embeddings -e HF_HOME=/data/modelcache -v localdata:/data neuml/rag
 ```
 
 See the documentation for the [LLM pipeline](https://neuml.github.io/txtai/pipeline/text/llm/) and [Embeddings](https://neuml.github.io/txtai/embeddings/) for more information.
