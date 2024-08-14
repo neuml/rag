@@ -500,7 +500,11 @@ Text:
         kwargs = {"batch_size": int(topicsbatch)} if topicsbatch else {}
 
         # Run prompt batch and set topics
-        for x, topic in enumerate(self.llm(prompts, maxlength=2048, **kwargs)):
+        for x, topic in enumerate(
+            self.llm(
+                prompts, maxlength=int(os.environ.get("MAXLENGTH", 2048)), **kwargs
+            )
+        ):
             # Set topic attribute
             uid = batch[x][0]
             embeddings.graph.addattribute(uid, "topic", topic)
@@ -633,7 +637,12 @@ Text:
                             logger.debug(x)
 
                     # Run RAG
-                    response = self.rag(question, context, maxlength=4096, stream=True)
+                    response = self.rag(
+                        question,
+                        context,
+                        maxlength=int(os.environ.get("MAXLENGTH", 4096)),
+                        stream=True,
+                    )
 
                     # Render response
                     response = st.write_stream(response)

@@ -112,6 +112,7 @@ The RAG application has a number of environment variables that can be set to con
 | DATA        | Optionally sets the input data directory | None                                |
 | PERSIST     | Optionally persist embeddings index      | None                                |
 | TOPICSBATCH | Optionally batches topic LLM queries     | None                                |
+| MAXLENGTH   | Optionally sets max generation length    | 2048 for topics, 4096 for RAG       |
 
 *Note: AWQ models are only supported on `x86-64` machines*
 
