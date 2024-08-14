@@ -65,7 +65,7 @@ The short video clip above gives a brief overview on this RAG system. It shows a
 
 ![Vector](https://raw.githubusercontent.com/neuml/rag/master/images/vector.png)
 
-Tradional RAG or vector RAG runs a vector search to find the top N most relevant matches to a user's input. Those matches are passed to an LLM and the answer is returned.
+Traditional RAG or vector RAG runs a vector search to find the top N most relevant matches to a user's input. Those matches are passed to an LLM and the answer is returned.
 
 The query `Who created Linux?` runs a vector search for the best matching documents in the Embeddings index. Those matches are then placed into a LLM prompt. The LLM prompt is executed and the answer is returned.
 
@@ -160,3 +160,7 @@ docker run -d --gpus=all -it -p 8501:8501 -e DATA=/data/path -e EMBEDDINGS=/data
 ```
 
 See the documentation for the [LLM pipeline](https://neuml.github.io/txtai/pipeline/text/llm/) and [Embeddings](https://neuml.github.io/txtai/embeddings/) for more information.
+
+## Further Reading
+
+- [Introducing RAG with txtai](https://medium.com/neuml/introducing-rag-with-txtai-f3456977cf91)
