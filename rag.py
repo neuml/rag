@@ -300,7 +300,7 @@ class Application:
         self.embeddings = self.load()
 
         # Context size
-        self.context = 10
+        self.context = int(os.environ.get("CONTEXT", 10))
 
         # Define prompt template
         template = """

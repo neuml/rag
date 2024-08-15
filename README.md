@@ -103,16 +103,17 @@ When a query begins with a `#` the URL or file is read by the RAG application an
 
 The RAG application has a number of environment variables that can be set to control how the application behaves.
 
-| Variable    | Description                              | Default Value                       |
-|:----------- |:---------------------------------------- |:----------------------------------- | 
-| TITLE       | Sets the main title of the application   | 🚀 RAG with txtai                   |
-| LLM         | Sets the LLM                             | x86-64: [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
-|             |                                          | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
-| EMBEDDINGS  | Sets the embeddings database path        | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |
-| DATA        | Optionally sets the input data directory | None                                |
-| PERSIST     | Optionally persist embeddings index      | None                                |
-| TOPICSBATCH | Optionally batches topic LLM queries     | None                                |
-| MAXLENGTH   | Optionally sets max generation length    | 2048 for topics, 4096 for RAG       |
+| Variable    | Description                                 | Default Value                       |
+|:----------- |:------------------------------------------- |:----------------------------------- |
+| TITLE       | Main title of the application               | 🚀 RAG with txtai                   |
+| LLM         | Path to LLM                                 | x86-64: [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
+|             |                                             | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
+| EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |
+| MAXLENGTH   | Maximum generation length                   | 2048 for topics, 4096 for RAG       |
+| CONTEXT     | RAG context size                            | 10                                  |
+| DATA        | Optional directory to index data from       | None                                |
+| PERSIST     | Optional directory to save index updates to | None                                |
+| TOPICSBATCH | Optional batch size for LLM topic queries   | None                                |
 
 *Note: AWQ models are only supported on `x86-64` machines*
 
