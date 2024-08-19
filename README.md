@@ -106,6 +106,10 @@ The RAG application has a number of environment variables that can be set to con
 | Variable    | Description                                 | Default Value                       |
 |:----------- |:------------------------------------------- |:----------------------------------- |
 | TITLE       | Main title of the application               | 🚀 RAG with txtai                   |
+| EXAMPLES    | List of queries separated by `;`            | `Who created Linux?`                |
+|             |                                             | `gq: Tell me about Linux`           |
+|             |                                             | `linux -> macos -> microsoft windows` |
+|             |                                             | `linux -> macos -> microsoft windows gq: Tell me about Linux` |
 | LLM         | Path to LLM                                 | x86-64: [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
 |             |                                             | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
 | EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |

@@ -525,9 +525,20 @@ Text:
             instructions
         """
 
+        # Example queries
+        if "EXAMPLES" in os.environ:
+            examples = [x.strip() for x in os.environ["EXAMPLES"].split(";")]
+        else:
+            examples = [
+                "Who created Linux?",
+                "gq: Tell me about Linux",
+                "linux -> macos -> microsoft windows",
+                "linux -> macos -> microsoft windows gq: Tell me about Linux",
+            ]
+
         # Base instructions
         instructions = (
-            "Ask a question such as `Who created Linux?`\n\n"
+            f"Ask a question such as `{examples[0]}`\n\n"
             f"{'**The index is currently empty**' if not self.embeddings.count() else ''}\n\n"
             "`📄 Data` can be added to this index as follows.\n\n"
             "- `# file path or URL`\n"
@@ -538,12 +549,12 @@ Text:
         if "graph" in self.embeddings.config:
             instructions += (
                 "\n\nThis index also supports `📈 GraphRAG`. Examples are shown below.\n"
-                "- `gq: Tell me about Linux`\n"
+                f"- `{examples[1]}`\n"
                 "  - Graph rag query, the `gq: ` prefix enables graph rag\n"
-                "- `linux -> macos -> microsoft windows`\n"
+                f"- `{examples[2]}`\n"
                 "  - Graph path query for a list of concepts separated by `->`\n"
                 "  - The graph path is analyzed and described by the LLM\n"
-                "- `linux -> macos -> microsoft windows gq: Tell me about Linux`\n"
+                f"- `{examples[3]}`\n"
                 "  - Graph path with a graph rag query"
             )
 
