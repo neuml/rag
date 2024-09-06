@@ -12,8 +12,8 @@ RUN \
     rm -rf /var/lib/apt/lists && \
     apt-get -y autoremove && \
     \
-    # Install base requirements, latest Transformers (Llama 3.1)
-    python -m pip install --no-cache-dir -r requirements.txt transformers --upgrade
+    # Install base requirements
+    python -m pip install --no-cache-dir -r requirements.txt
 
 # Start streamlit application
 ENTRYPOINT ["streamlit", "run", "rag.py"]
