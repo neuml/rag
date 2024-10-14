@@ -1,7 +1,7 @@
 # Current version of AutoAWQ requires torch==2.3.1
 autoawq; platform_machine == "x86_64" or platform_machine == "AMD64"
-torch==2.3.1; platform_machine == "x86_64" or platform_machine == "AMD64"
-torchvision==0.18.1; platform_machine == "x86_64" or platform_machine == "AMD64"
+torch==2.4.1; platform_machine == "x86_64" or platform_machine == "AMD64"
+torchvision==0.19.1; platform_machine == "x86_64" or platform_machine == "AMD64"
 
 # Base requirements
 matplotlib
