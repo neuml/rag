@@ -290,9 +290,9 @@ class Application:
         self.llm = LLM(
             os.environ.get(
                 "LLM",
-                "TheBloke/Mistral-7B-OpenOrca-AWQ"
+                "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4"
                 if platform.machine() in ("x86_64", "AMD")
-                else "TheBloke/Mistral-7B-OpenOrca-GGUF/mistral-7b-openorca.Q4_K_M.gguf",
+                else "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
             )
         )
 

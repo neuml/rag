@@ -110,9 +110,9 @@ The RAG application has a number of environment variables that can be set to con
 |             |                                             | `gq: Tell me about Linux`           |
 |             |                                             | `linux -> macos -> microsoft windows` |
 |             |                                             | `linux -> macos -> microsoft windows gq: Tell me about Linux` |
-| LLM         | Path to LLM                                 | x86-64: [Mistral-7B-OpenOrca-AWQ](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-AWQ) |
-|             |                                             | arm64 : [Mistral-7B-OpenOrca-GGUF](https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF) |
-| EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://huggingface.co/NeuML/txtai-wikipedia-slim) |
+| LLM         | Path to LLM                                 | x86-64: [Llama-3.1-8B-Instruct-AWQ-INT4](https://hf.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
+|             |                                             | arm64 : [Llama-3.1-8B-Instruct-GGUF](https://hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF) |
+| EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://hf.co/NeuML/txtai-wikipedia-slim) |
 | MAXLENGTH   | Maximum generation length                   | 2048 for topics, 4096 for RAG       |
 | CONTEXT     | RAG context size                            | 10                                  |
 | DATA        | Optional directory to index data from       | None                                |
