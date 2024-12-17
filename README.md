@@ -115,6 +115,7 @@ The RAG application has a number of environment variables that can be set to con
 | EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://hf.co/NeuML/txtai-wikipedia-slim) |
 | MAXLENGTH   | Maximum generation length                   | 2048 for topics, 4096 for RAG       |
 | CONTEXT     | RAG context size                            | 10                                  |
+| TEXTBACKEND | [Text extraction backend](https://neuml.github.io/txtai/pipeline/data/filetohtml/#txtai.pipeline.FileToHTML.__init__)                     | available                         |
 | DATA        | Optional directory to index data from       | None                                |
 | PERSIST     | Optional directory to save index updates to | None                                |
 | TOPICSBATCH | Optional batch size for LLM topic queries   | None                                |
@@ -151,10 +152,22 @@ docker run -d --gpus=all -it -p 8501:8501 -e LLM=gpt-4o -e OPENAI_API_KEY=your-a
 docker run -d --gpus=all -it -p 8501:8501 -e EMBEDDINGS=neuml/arxiv neuml/rag
 ```
 
+### Start with an empty embeddings index
+
+```
+docker run -d --gpus=all -it -p 8501:8501 -e EMBEDDINGS= neuml/rag
+```
+
 ### Build an embeddings index with a local directory of files
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 -e DATA=/data/path -v local/path:/data/path neuml/rag
+```
+
+### Use the Docling text extraction backend
+
+```
+docker run -d --gpus=all -it -p 8501:8501 -e TEXTBACKEND=docling neuml/rag
 ```
 
 ### Persist embeddings and cache models

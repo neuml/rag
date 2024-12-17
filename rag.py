@@ -319,6 +319,9 @@ context: {context} """
             context=self.context,
         )
 
+        # Textractor instance (lazy loaded)
+        self.textractor = None
+
     def load(self):
         """
         Creates or loads an Embeddings instance.
@@ -425,8 +428,15 @@ context: {context} """
             extracted content
         """
 
-        textractor = Textractor(paragraphs=True)
-        return textractor(inputs)
+        # Initialize textractor
+        if not self.textractor:
+            self.textractor = Textractor(
+                paragraphs=True,
+                backend=os.environ.get("TEXTBACKEND", "available"),
+            )
+
+        # Extract text
+        return self.textractor(inputs)
 
     def infertopics(self, embeddings, start):
         """
