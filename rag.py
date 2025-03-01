@@ -286,6 +286,9 @@ class Application:
         Creates a new application.
         """
 
+        # Textractor instance (lazy loaded)
+        self.textractor = None
+
         # Load LLM
         self.llm = LLM(
             os.environ.get(
@@ -318,9 +321,6 @@ context: {context} """
             template=template,
             context=self.context,
         )
-
-        # Textractor instance (lazy loaded)
-        self.textractor = None
 
     def load(self):
         """
