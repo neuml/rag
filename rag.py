@@ -286,13 +286,18 @@ class Application:
         Creates a new application.
         """
 
+        # Textractor instance (lazy loaded)
+        self.textractor = None
+
         # Load LLM
         self.llm = LLM(
             os.environ.get(
                 "LLM",
-                "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4"
-                if platform.machine() in ("x86_64", "AMD")
-                else "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+                (
+                    "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4"
+                    if platform.machine() in ("x86_64", "AMD")
+                    else "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+                ),
             )
         )
 
@@ -318,9 +323,6 @@ context: {context} """
             template=template,
             context=self.context,
         )
-
-        # Textractor instance (lazy loaded)
-        self.textractor = None
 
     def load(self):
         """
