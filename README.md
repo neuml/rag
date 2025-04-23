@@ -97,7 +97,7 @@ Data can be added as follows.
 | `# file path or URL`                        | ![Upload File](https://raw.githubusercontent.com/neuml/rag/master/images/upload-file.png) |
 | `# custom notes and text as a string here!` | ![Upload Text](https://raw.githubusercontent.com/neuml/rag/master/images/upload-text.png) |
 
-When a query begins with a `#` the URL or file is read by the RAG application and loaded into the index. This method also supports loading text directly into the index. For example `# txtai is an all-in-one embeddings database` would create a new entry in the Embeddings database. 
+When a query begins with a `#` the URL or file is read by the RAG application and loaded into the index. This method also supports loading text directly into the index. For example `# txtai is an all-in-one AI framework` would create a new entry in the Embeddings database.
 
 ## Configuration parameters
 
