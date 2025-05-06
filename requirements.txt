@@ -1,5 +1,5 @@
 # Only install AutoAWQ with x86-64
-autoawq[kernels]==0.2.7.post2; platform_machine == "x86_64" or platform_machine == "AMD64"
+autoawq; platform_machine == "x86_64" or platform_machine == "AMD64"
 
 # Base requirements
 matplotlib

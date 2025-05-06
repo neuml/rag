@@ -8,7 +8,7 @@ COPY rag.py requirements.txt .
 RUN \
     # Install Java (for Apache Tika)
     apt-get update && \
-    apt-get -y --no-install-recommends install default-jre-headless && \
+    apt-get -y --no-install-recommends install default-jre-headless gcc python3-dev && \
     rm -rf /var/lib/apt/lists && \
     apt-get -y autoremove && \
     \

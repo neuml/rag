@@ -17,11 +17,16 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import streamlit as st
 
+import torch
+
 from txtai import Embeddings, LLM, RAG
 from txtai.pipeline import Textractor
 
 # Build logger
 logger = st.logger.get_logger(__name__)
+
+# Workaround for torch / streamlit issue
+torch.classes.__path__ = []
 
 
 class AutoId:
