@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import streamlit as st
 
+import transformers
 import torch
 
 from txtai import Embeddings, LLM, RAG
@@ -27,6 +28,10 @@ logger = st.logger.get_logger(__name__)
 
 # Workaround for torch / streamlit issue
 torch.classes.__path__ = []
+
+# Workaround for latest version of AutoAWQ / Transformers issue
+if not hasattr(transformers.activations, "PytorchGELUTanh"):
+    transformers.activations.PytorchGELUTanh = transformers.activations.GELUTanh
 
 
 class AutoId:

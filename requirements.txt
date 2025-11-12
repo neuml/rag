@@ -5,3 +5,6 @@ autoawq; platform_machine == "x86_64" or platform_machine == "AMD64"
 matplotlib
 streamlit
 txtai[graph,pipeline-data,pipeline-llm]
+
+# Pin grand-cypher until https://github.com/aplbrain/grand-cypher/pull/87 released
+grand-cypher==0.13.0
