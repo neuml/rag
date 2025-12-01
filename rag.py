@@ -3,7 +3,6 @@ Runs a RAG application backed by a txtai Embeddings database.
 """
 
 import os
-import platform
 import re
 
 from glob import glob
@@ -17,21 +16,11 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import streamlit as st
 
-import transformers
-import torch
-
 from txtai import Embeddings, LLM, RAG
 from txtai.pipeline import Textractor
 
 # Build logger
 logger = st.logger.get_logger(__name__)
-
-# Workaround for torch / streamlit issue
-torch.classes.__path__ = []
-
-# Workaround for latest version of AutoAWQ / Transformers issue
-if not hasattr(transformers.activations, "PytorchGELUTanh"):
-    transformers.activations.PytorchGELUTanh = transformers.activations.GELUTanh
 
 
 class AutoId:
@@ -300,16 +289,7 @@ class Application:
         self.textractor = None
 
         # Load LLM
-        self.llm = LLM(
-            os.environ.get(
-                "LLM",
-                (
-                    "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4"
-                    if platform.machine() in ("x86_64", "AMD")
-                    else "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
-                ),
-            )
-        )
+        self.llm = LLM(os.environ.get("LLM", "Qwen/Qwen3-4B-Instruct-2507"))
 
         # Load embeddings
         self.embeddings = self.load()
@@ -524,7 +504,11 @@ Text:
         # Run prompt batch and set topics
         for x, topic in enumerate(
             self.llm(
-                prompts, maxlength=int(os.environ.get("MAXLENGTH", 2048)), **kwargs
+                prompts,
+                maxlength=int(os.environ.get("MAXLENGTH", 2048)),
+                stripthink=os.environ.get("STRIPTHINK", "false").lower()
+                in ("true", "1"),
+                **kwargs,
             )
         ):
             # Set topic attribute
@@ -675,6 +659,8 @@ Text:
                         context,
                         maxlength=int(os.environ.get("MAXLENGTH", 4096)),
                         stream=True,
+                        stripthink=os.environ.get("STRIPTHINK", "False").lower()
+                        in ("true", "1"),
                     )
 
                     # Render response

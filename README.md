@@ -110,40 +110,38 @@ The RAG application has a number of environment variables that can be set to con
 |             |                                             | `gq: Tell me about Linux`           |
 |             |                                             | `linux -> macos -> microsoft windows` |
 |             |                                             | `linux -> macos -> microsoft windows gq: Tell me about Linux` |
-| LLM         | Path to LLM                                 | x86-64: [Llama-3.1-8B-Instruct-AWQ-INT4](https://hf.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
-|             |                                             | arm64 : [Llama-3.1-8B-Instruct-GGUF](https://hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF) |
+| LLM         | Path to LLM                                 | [Qwen3-4B-Instruct-2507](https://hf.co/Qwen/Qwen3-4B-Instruct-2507) |
 | EMBEDDINGS  | Embeddings database path                    | [neuml/txtai-wikipedia-slim](https://hf.co/NeuML/txtai-wikipedia-slim) |
 | MAXLENGTH   | Maximum generation length                   | 2048 for topics, 4096 for RAG       |
+| STRIPTHINK  | Strip thinking text from responses          | False                               |
 | CONTEXT     | RAG context size                            | 10                                  |
 | TEXTBACKEND | [Text extraction backend](https://neuml.github.io/txtai/pipeline/data/filetohtml/#txtai.pipeline.FileToHTML.__init__)                     | available                         |
 | DATA        | Optional directory to index data from       | None                                |
 | PERSIST     | Optional directory to save index updates to | None                                |
 | TOPICSBATCH | Optional batch size for LLM topic queries   | None                                |
 
-*Note: AWQ models are only supported on `x86-64` machines*
-
 In the application, these settings can be shown by typing `:settings`.
 
 See the following examples for setting this configuration with the Docker container. When running within a Python virtual environment, simply set these as environment variables.
 
-### Llama 3.1 8B
+### GPT-OSS
 
 ```
-docker run -d --gpus=all -it -p 8501:8501 -e LLM=hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4 neuml/rag
+docker run -d --gpus=all -it -p 8501:8501 -e LLM=openai/gpt-oss-20b neuml/rag
 ```
 
-### Llama 3.1 8B via Ollama
+### GPT-OSS via Ollama
 
 ```
 docker run -d --gpus=all -it -p 8501:8501 --add-host=host.docker.internal:host-gateway \
--e LLM=ollama/llama3.1:8b-instruct-q4_K_M -e OLLAMA_API_BASE=http://host.docker.internal:11434 \
+-e LLM=ollama/gpt-oss -e OLLAMA_API_BASE=http://host.docker.internal:11434 \
 neuml/rag
 ```
 
-### GPT-4o
+### GPT-5.1
 
 ```
-docker run -d --gpus=all -it -p 8501:8501 -e LLM=gpt-4o -e OPENAI_API_KEY=your-api-key neuml/rag
+docker run -d --gpus=all -it -p 8501:8501 -e LLM=gpt-5.1 -e OPENAI_API_KEY=your-api-key neuml/rag
 ```
 
 ### Run with another embeddings index
