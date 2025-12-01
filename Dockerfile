@@ -2,13 +2,13 @@
 ARG BASE_IMAGE=neuml/txtai-cpu
 FROM $BASE_IMAGE
 
-# Copy RAG application
+# Copy RAG application and requirements
 COPY rag.py requirements.txt .
 
 RUN \
     # Install Java (for Apache Tika)
     apt-get update && \
-    apt-get -y --no-install-recommends install default-jre-headless gcc python3-dev && \
+    apt-get -y --no-install-recommends install default-jre-headless && \
     rm -rf /var/lib/apt/lists && \
     apt-get -y autoremove && \
     \
